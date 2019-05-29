@@ -1,0 +1,18 @@
+<nz-collapse [nzBordered]="false">
+  <nz-collapse-panel nzHeader="Add device to group">
+    <ion-list>
+      <ion-item *ngFor="let device of _defGroup.ids">
+        <ion-label>{{ device }}</ion-label>
+        <ion-checkbox slot="end" color="primary" (ionChange)="devChecked($event, device)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </nz-collapse-panel>
+  <nz-collapse-panel nzHeader="Remove device from group">
+    <ion-list>
+      <ion-item *ngFor="let device of _curGroup.ids">
+        <ion-label>{{ device }}</ion-label>
+        <ion-checkbox slot="end" color="primary" (ionChange)="devRemoved($event, device)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </nz-collapse-panel>
+</nz-collapse>

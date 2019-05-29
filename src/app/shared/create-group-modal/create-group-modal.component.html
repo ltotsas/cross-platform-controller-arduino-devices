@@ -1,0 +1,25 @@
+<form nz-form [nzLayout]="validateForm.get('formLayout')?.value" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label>Group Name</nz-form-label>
+    <nz-form-control>
+      <input nz-input formControlName="name" placeholder="try your best" />
+      <nz-form-explain *ngIf="validateForm.get('name')?.dirty && validateForm.get('name')?.errors"
+        >Please input a group name!</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Group Color</nz-form-label>
+    <nz-form-control>
+      <input nz-input formControlName="color" placeholder="plain text or hex" />
+      <nz-form-explain *ngIf="validateForm.get('color')?.dirty && validateForm.get('color')?.errors"
+        >Please input a group color!</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <!-- <nz-form-item>
+    <nz-form-control [nzSpan]="isHorizontal ? 14 : null" [nzOffset]="isHorizontal ? 4 : null">
+      <button nz-button nzType="primary">Submit</button>
+    </nz-form-control>
+  </nz-form-item> -->
+</form>

@@ -1,0 +1,12 @@
+<p>{{ noDevices$ | async }}</p>
+<li *ngFor="let group of (groups$ | async)">
+  {{ group.name }}
+  {{ group.color }}
+  <div *ngFor="let dev of group.ids">
+    <div *ngFor="let device of (devices$ | async)">
+      <div *ngIf="dev === device.name">
+        {{ device.name }}
+      </div>
+    </div>
+  </div>
+</li>

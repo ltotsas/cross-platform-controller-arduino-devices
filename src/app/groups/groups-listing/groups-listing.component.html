@@ -1,0 +1,104 @@
+<div cdkDropListGroup *ngFor="let group of (groups$ | async); let i = index">
+  <div class="example-container">
+    <nz-card
+      [nzActions]="[actionState, actionOpen, actionPing]"
+      [nzTitle]="title"
+      [nzExtra]="editDevices"
+      [nzBodyStyle]="{ padding: '0' }"
+    >
+      <nz-card-meta [nzDescription]="content"> </nz-card-meta>
+    </nz-card>
+    <ng-template #title>
+      <h2 style="color:rgba(0,0,0,.65);">Group Name: {{ group.name }}</h2>
+      <h3 style="color:rgba(0,0,0,.65);">No Devices: {{ group.ids.length }}</h3>
+    </ng-template>
+    <ng-template #content>
+      <nz-collapse *ngIf="group.ids.length !== 0" [nzBordered]="false">
+        <nz-collapse-panel nzHeader="Show Devices">
+          <div
+            cdkDropList
+            [cdkDropListData]="group"
+            class="example-list"
+            cdkDropListSortingDisabled
+            (cdkDropListDropped)="sort($event)"
+          >
+            <div class="example-box" *ngFor="let device of group.ids" cdkDrag>{{ device }}</div>
+          </div>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </ng-template>
+    <ng-template #editDevices>
+      <button
+        [disabled]="group.openned === 1"
+        nz-button
+        nzType="default"
+        nzShape="circle"
+        (click)="params(group.ids, group.name)"
+      >
+        <i nz-icon nzType="setting" nzTheme="outline"></i>
+      </button>
+      <button
+        [disabled]="group.state === 1"
+        *ngIf="group.name !== 'default'"
+        nz-button
+        nzType="default"
+        nzShape="circle"
+        (click)="modalService.createDevListingModal(group.name)"
+      >
+        <i nz-icon nzType="edit" nzTheme="outline"></i>
+      </button>
+    </ng-template>
+    <ng-template #actionState>
+      <button
+        [disabled]="group.ids.length === 0 || group.openned === 1"
+        class="action-btn"
+        nz-button
+        nzSize="large"
+        [nzType]="group.state === 0 ? 'primary' : 'danger'"
+        (click)="start(group.ids, group.state, group.name)"
+      >
+        <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+      </button>
+    </ng-template>
+    <ng-template #actionOpen>
+      <button
+        [disabled]="group.ids.length === 0 || group.state === 1"
+        class="action-btn"
+        nz-button
+        nzSize="large"
+        [nzType]="group.openned === 0 ? 'primary' : 'danger'"
+        (click)="open(group.ids, group.openned, group.name)"
+      >
+        <i nz-icon nzType="redo" nzTheme="outline"></i>
+      </button>
+    </ng-template>
+    <ng-template #actionPing>
+      <button
+        [disabled]="group.ids.length === 0"
+        class="action-btn"
+        nz-button
+        nzSize="large"
+        [nzLoading]="group.blink === 1"
+        nzType="primary"
+        (click)="identify(group.ids, group.blink, group.name)"
+      >
+        <i nz-icon nzType="exclamation" nzTheme="outline"></i>
+      </button>
+    </ng-template>
+    <nz-progress
+      *ngIf="group.state === 1"
+      nzStrokeLinecap="square"
+      [nzShowInfo]="false"
+      [nzPercent]="100"
+      nzStatus="active"
+      [nzStrokeColor]="group.color"
+    >
+    </nz-progress>
+    <nz-divider *ngIf="i + 1 !== (noGroups$ | async)" nzDashed [nzText]="text" style="color: rgba(0,0,0,.50);">
+      <ng-template #text>Group</ng-template>
+    </nz-divider>
+    <!-- <button nz-button nzType="default"
+      (click)="start(group.ids, group.state, group.name)">{{group.state === 0 ? 'start' : 'stop'}}</button>
+    <button nz-button nzType="default">open</button> -->
+  </div>
+</div>

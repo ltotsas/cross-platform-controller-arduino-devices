@@ -1,0 +1,47 @@
+<form nz-form [nzLayout]="validateForm.get('formLayout')?.value" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label
+      >Setpoint
+      <span> {{ validateForm.get('setpoint').value }}</span>
+    </nz-form-label>
+    <nz-form-control>
+      <nz-slider [nzMin]="0" [nzMax]="100" formControlName="setpoint"></nz-slider>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label
+      >Amplitude
+      <span> {{ validateForm.get('amplitude').value }}</span>
+    </nz-form-label>
+    <nz-form-control>
+      <nz-slider [nzMin]="0" [nzMax]="200" formControlName="amplitude"></nz-slider>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label
+      >Fansignal
+      <span> {{ validateForm.get('fansignal').value }}</span>
+    </nz-form-label>
+    <nz-form-control>
+      <nz-slider [nzStep]="10" [nzMin]="0" [nzMax]="990" formControlName="fansignal"></nz-slider>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label
+      >Active Interval
+      <span> {{ validateForm.get('active_interval').value }}</span>
+    </nz-form-label>
+    <nz-form-control>
+      <nz-slider [nzStep]="30" [nzMin]="0" [nzMax]="3000" formControlName="active_interval"></nz-slider>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label
+      >Passive Interval
+      <span> {{ validateForm.get('passive_interval').value }}</span>
+    </nz-form-label>
+    <nz-form-control>
+      <nz-slider [nzStep]="30" [nzMin]="0" [nzMax]="3000" formControlName="passive_interval"></nz-slider>
+    </nz-form-control>
+  </nz-form-item>
+</form>
